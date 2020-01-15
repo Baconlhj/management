@@ -15,14 +15,14 @@ import Customer from './Compnents/Customer';
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto"
   },
   table: {
     minWidth: 1080
   },
   progress: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing(2)
   }
 });
 
@@ -37,6 +37,7 @@ class App extends Component {
     this.timer = setInterval(this.progress, 20)
     this.callApi()
       .then(res => this.setState({customers: res}))
+      .then(clearInterval(this.timer))
       .catch(err => console.log(err));
   }
 
@@ -49,6 +50,7 @@ class App extends Component {
   progress = () => {
     const { completed } = this.state;
     this.setState({ completed: completed >= 100 ? 0 : completed + 1});
+    console.log(completed);
   }
 
   render() {
